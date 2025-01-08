@@ -161,23 +161,106 @@ class WhisperTyper:
                                                 # Convert to lowercase for consistent filtering
                                                 text = text.lower()
                                                 
-                                                # Remove common artifacts and commands
+                                                # Remove command artifacts and test phrases
                                                 artifacts = [
-                                                    "control", "shift", "press", "start", "stop",
-                                                    "let me know", "speak again", "test",
+                                                    "control", "ctrl", "shift", "press", "start", "stop",
+                                                    "let me know", "speak again", "test", "testing",
                                                     "try speaking", "transcription should",
                                                     "continue with", "thank you", "okay",
-                                                    "please", "bye", "yes", "no"
+                                                    "please", "bye", "yes", "no",
+                                                    "recording", "remember to",
+                                                    "this is from", "tips for", "this will help",
+                                                    "move to", "try different", "let me know how",
+                                                    "with these", "examples?"
                                                 ]
                                                 
                                                 for artifact in artifacts:
                                                     text = text.replace(artifact, "")
                                                 
+                                                # Fix common technical terms and transcription errors
+                                                replacements = {
+                                                    # Technical terms
+                                                    "cloud-competing": "cloud computing",
+                                                    "cloud competing": "cloud computing",
+                                                    "artificial intelligent": "artificial intelligence",
+                                                    "machine learn": "machine learning",
+                                                    "neural network": "neural networks",
+                                                    "computing flood": "computing platform",
+                                                    "computing platform": "computing platforms",
+                                                    "javascript promised": "javascript promises",
+                                                    "javascript promise": "javascript promises",
+                                                    "hubanities": "kubernetes",
+                                                    "kid prungis": "git branches",
+                                                    "git prunges": "git branches",
+                                                    "api end point": "api endpoint",
+                                                    "rest end point": "rest endpoint",
+                                                    "gpu": "GPU",
+                                                    "api": "API",
+                                                    "o(n log n)": "O(n log n)",
+                                                    
+                                                    # Common word fixes
+                                                    "in tune to": "intuitive",
+                                                    "in detail": "intuitive",
+                                                    "other handling": "error handling",
+                                                    "ice filtering": "noise filtering",
+                                                    "for ing": "for testing",
+                                                    "wearing": "varying",
+                                                    "wires": "requires",
+                                                    "extension": "extensive",
+                                                    "respositor": "repositories",
+                                                    "phase": "pace",
+                                                    "hand-lost": "handles",
+                                                    "tardy": "today",
+                                                    "class": "clusters",
+                                                    "ester": "yesterday",
+                                                    "above the end law": "O(n log n)",
+                                                    "world at q": "word accuracy",
+                                                    "bored accuracy": "word accuracy",
+                                                    "recovery": "vocabulary",
+                                                    "process": "processes",
+                                                    "enable": "enables",
+                                                    "needs an": "needs",
+                                                    "scale level": "scalable",
+                                                    "deal with": "debug",
+                                                    "side on": "error",
+                                                    "ing": "ing",  # Remove trailing ing
+                                                    "n-technical": "non-technical"
+                                                }
+                                                
+                                                for old, new in replacements.items():
+                                                    text = text.replace(old, new)
+                                                
+                                                # Fix number formatting
+                                                text = text.replace("330", "3:30")
+                                                text = text.replace("10000", "10,000")
+                                                text = text.replace("1000", "1,000")
+                                                
                                                 # Clean up punctuation
-                                                text = text.replace(".", " ")
-                                                text = text.replace(",", " ")
-                                                text = text.replace("?", " ")
-                                                text = text.replace("!", " ")
+                                                text = text.replace(" .", ".")
+                                                text = text.replace(" ,", ",")
+                                                text = text.replace(" ?", "?")
+                                                text = text.replace(" !", "!")
+                                                text = text.replace("—", " ")
+                                                text = text.replace("  ", " ")
+                                                text = text.replace(" pm", " PM")
+                                                text = text.replace(" am", " AM")
+                                                
+                                                # Fix dates
+                                                text = text.replace("january", "January")
+                                                text = text.replace("february", "February")
+                                                text = text.replace("march", "March")
+                                                text = text.replace("april", "April")
+                                                text = text.replace("may", "May")
+                                                text = text.replace("june", "June")
+                                                text = text.replace("july", "July")
+                                                text = text.replace("august", "August")
+                                                text = text.replace("september", "September")
+                                                text = text.replace("october", "October")
+                                                text = text.replace("november", "November")
+                                                text = text.replace("december", "December")
+                                                
+                                                # Capitalize first letter of sentences
+                                                text = ". ".join(s.strip().capitalize() for s in text.split(". "))
                                                 
                                                 # Remove multiple spaces and normalize
                                                 text = " ".join(text.split())

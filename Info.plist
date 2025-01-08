@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>WhisperTyper</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.example.whispertyper</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>WhisperTyper needs access to your microphone to convert speech to text.</string>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>WhisperTyper needs to control your computer to type the converted text.</string>
+</dict>
+</plist>
